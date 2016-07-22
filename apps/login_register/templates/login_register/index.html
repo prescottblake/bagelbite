@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login/Registration</title>
+	{%load staticfiles%}
+	<link rel="stylesheet" type="text/css" href="{% static 'login_register/css/bootstrap.css' %}">
+	<script type="text/javascript" href="{% static 'login_register/js/jquery-3.0.0.min.js"></script>
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<h1>Welcome</h1>	
+	</div>
+	<div class="row">
+		<div class="col-xs-6">
+			
+			<div class="register">
+				<h2>Register</h2>
+				
+				<form action="{%url 'register'%}" method="POST">
+				{%csrf_token%}
+					<fieldset class="form-group">
+						<label>Name:</label>
+						<input type="text" name="name">
+					</fieldset>
+					<fieldset class="form-group">
+						<label>Username:</label>
+						<input type="text" name="username">
+					</fieldset>
+					<fieldset class="form-group">
+						<label>Password:</label>
+						<input type="password" name="password">
+					</fieldset>
+					<fieldset class="form-group">
+						<label>Confirm Password:</label>
+						<input type="password" name="confirm_password">
+					</fieldset>
+					<fieldset>
+						<button type="submit">Register</button>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+		
+		<div class="col-xs-6">
+			<div class="login">
+			<h1></h1>
+			<h2>Login</h2>
+				<form action="{%url 'login'%}" method="POST">
+				{%csrf_token%}
+					<fieldset class="form-group">
+						<label>Username:</label>
+						<input type="text" name="username">
+					</fieldset>
+					<fieldset class="form-group">
+						<label>Password:</label>
+						<input type="password" name="password">
+					</fieldset>
+					<fieldset>
+						<button type="submit">Login</button>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+
+	</div>
+	<div class="row">
+			{% if messages%}
+			<div class="col-xs-3"></div>
+			<div class="col-xs-6">
+				<ul class="messages">
+				{%for message in messages%}
+					<li>{{message}}</li>
+					{%endfor%}
+				</ul>
+			</div>
+			<div class="col-xs-3"></div>
+		{%endif%}
+		</div>
+</div
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Destination</title>
+	{%load staticfiles%}
+	<link rel="stylesheet" type="text/css" href="{% static 'travel_app/css/bootstrap.css' %}">
+	<script type="text/javascript" href="{% static 'travel_app/js/jquery-3.0.0.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<nav class="navbar">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="{%url 'travel'%}">Home</a></li>
+						<li><a href="{%url 'logout'%}">Log Out</a></li>
+					</ul>
+				</nav>
+		<div class="row">
+			<h1>{{Trip.destination}}</h1>
+			<ul>
+				<li>Planned By {{Trip.user}}</li>
+				<li>Description {{Trip.description}}</li>
+				<li>Travel Date From {{Trip.start_date}}</li>
+				<li>Travel Date To {{Trip.end_date}}</li>
+			</ul>
+			<form action="{%url 'join'%}" method="POST">
+				{%csrf_token%}
+				<input type="hidden" name="user_id" value="{{request.session.id}}">
+				<input type="hidden" name="trip_id" value="{{Trip.id}}">
+				<button type="submit">Join</button>
+			</form>
+			<h2>Other users' joining the trip</h2>
+			<ul>
+			{%for user in Trip.joiners.all%}
+			<li>{{user.name}}</li>
+			{%endfor%}
+			</ul>
+		</div>
+	</div>
+</body>
+</html>

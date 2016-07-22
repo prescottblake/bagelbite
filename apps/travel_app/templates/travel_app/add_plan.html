@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Plan</title>
+	{%load staticfiles%}
+	<link rel="stylesheet" type="text/css" href="{% static 'travel_app/css/bootstrap.css' %}">
+	<script type="text/javascript" href="{% static 'travel_app/js/jquery-3.0.0.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<nav class="navbar">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="{%url 'travel'%}">Home</a></li>
+						<li><a href="{%url 'logout'%}">Log Out</a></li>
+					</ul>
+				</nav>
+		<div class="row">
+		<div class="row">
+			<div class="col-xs-12">
+				<h2>Add a Trip</h2>
+				{% if messages%}
+				<ul class="messages">
+					{%for message in messages%}
+					<li>{{message}}</li>
+					{%endfor%}
+				</ul>
+				{%endif%}
+				<form action="{%url 'add_plan_process'%}" method="POST">
+				{%csrf_token%}
+					<fieldset class="form-group">
+						<label>Destination:</label>
+						<input type="text" name="destination">
+					</fieldset>
+					<fieldset class="form-group">
+						<label>Start Date:</label>
+						<input type="date" name="start_date" value="{{value|date:'Y-m-d'}}">
+					</fieldset>
+					<fieldset class="form-group">
+						<label>End Date:</label>
+						<input type="date" name="end_date" value="{{value|date:'Y-m-d'}}">
+					</fieldset>	
+					<fieldset class="form-group">
+						<label>Description:</label>
+						<textarea name="description"></textarea>
+					</fieldset>		
+					<fieldset class="form-group">
+						<button type="submit">Create</button>
+					</fieldset>	
+						<input type="hidden" name="author_id" value="{{request.session.id}}">				
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
